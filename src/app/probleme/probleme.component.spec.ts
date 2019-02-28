@@ -62,6 +62,11 @@ describe('ProblemeComponent', () => {
 
   });
 
-  
+  it('champ prénom doit être valide avec 2 espaces et 1 caractères', () =>{
+    let zone = component.problemeForm.controls['prenom'];
+    zone.setValue('  a');
+    expect(zone.valid).toBeTruthy();
+
+  });
   
 });
