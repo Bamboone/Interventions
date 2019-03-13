@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProblemeComponent } from './probleme.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ZonesValidator } from '../shared/longueur-minimum/longueur-minimum.component';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -55,17 +56,23 @@ describe('ProblemeComponent', () => {
 
   });
 
-  it('champ prénom doit être valide avec 10 espaces', () =>{
-    let zone = component.problemeForm.controls['prenom'];
-    zone.setValue(' '.repeat(10));
-    expect(zone.valid).toBeTruthy();
+  it('champ prénom doit être invalide avec 10 espaces', () =>{
+    //Préparer une variable afin de manipler le validateur
+    let validator = ZonesValidator.longueurMinimum(3);
+    let control = {value:'          '};
+     let result = validator(control as AbstractControl);
+     //Comparer le résultat avec null
+     expect(result['nbreCaracteresInsuffisants']).toBe(true);
 
   });
 
-  it('champ prénom doit être valide avec 2 espaces et 1 caractères', () =>{
-    let zone = component.problemeForm.controls['prenom'];
-    zone.setValue('  a');
-    expect(zone.valid).toBeTruthy();
+  it('champ prénom doit être invalide avec 2 espaces et 1 caractères', () =>{
+    //Préparer une variable afin de manipler le validateur
+    let validator = ZonesValidator.longueurMinimum(3);
+    let control = {value:'  a'};
+     let result = validator(control as AbstractControl);
+     //Comparer le résultat avec null
+     expect(result['nbreCaracteresInsuffisants']).toBe(true);
 
   });
   
