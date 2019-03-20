@@ -25,13 +25,53 @@
               <span *ngIf="(problemeForm.get('prenom').touched || 
                           problemeForm.get('prenom').dirty) &&
                           (problemeForm.get('prenom').errors)">
-                  <span *ngIf="problemeForm.get('prenom').errors.minlength || problemeForm.get('prenom').ZoneValidator.longueurMinimum"><small class="text-muted">Veuillez entrer au moins 3 caractères</small></span>
+                  <span *ngIf="problemeForm.get('prenom').errors.nbreCaracteresInsuffisants"><small class="text-muted">Veuillez entrer plus de caractères</small></span>
                   <span *ngIf="problemeForm.get('prenom').errors.required"><small class="text-muted">Merci de saisir votre prénom</small></span>
               </span>
+             
             </div>
-            
-            
           </div>
+            <div class="form-group row">
+              <label for="nomId" class="col-md-2 col-form-label text-right">Nom: </label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" id="nomId" placeholder="Votre nom ici (obligatoire)" formControlName="nom"
+                [ngClass]="{'is-valid': (problemeForm.get('nom').touched || 
+                problemeForm.get('nom').dirty) &&
+                (problemeForm.get('nom').valid),
+                'is-invalid': (problemeForm.get('nom').touched || 
+                problemeForm.get('nom').dirty) &&
+                (!problemeForm.get('nom').valid )}"/>           
+                <span *ngIf="(problemeForm.get('nom').touched || 
+                            problemeForm.get('nom').dirty) &&
+                            (problemeForm.get('nom').errors)">
+                    <span *ngIf="problemeForm.get('nom').errors.nbreCaracteresMaximum"><small class="text-muted">Veuillez entrer moins de caractères</small></span>
+                    <span *ngIf="problemeForm.get('nom').errors.required"><small class="text-muted">Merci de saisir votre nom de famille</small></span>
+                </span>
+              </div>
+             </div>
+             <div class="form-group row">
+              <label for="typeProblemeId" class="col-md-2 col-form-label text-right">Type de problème: </label>
+              <div class="col-md-10">
+                <select class="form-control" id="typeProbleme" formControlName="typeProbleme"
+                [ngClass]="{'is-valid': (problemeForm.get('typeProbleme').touched || 
+                      problemeForm.get('typeProbleme').dirty) &&
+                      (problemeForm.get('typeProbleme').valid),
+                      'is-invalid': (problemeForm.get('typeProbleme').touched || 
+                      problemeForm.get('typeProbleme').dirty) &&
+                      (!problemeForm.get('typeProbleme').valid )}">
+                      
+                      <option value="">Sélectionner un type de problème</option>
+                      <option *ngFor="let prob of typeProblemeClient" [value]="prob.id">{{prob.descriptionTypeProbleme}}</option>
+                                
+                
+                </select>
+                <span *ngIf="(problemeForm.get('typeProbleme').touched || 
+                      problemeForm.get('typeProbleme').dirty) &&
+                      (problemeForm.get('typeProbleme').errors)">
+                     <span *ngIf="problemeForm.get('typeProbleme').errors.required"><small class="text-muted">Merci de sélectionner un type de problème</small></span>
+                  </span>
+              </div>
+             </div>
         </form></div>
     </div>
     <div class="card-footer">
