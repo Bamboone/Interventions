@@ -20,7 +20,13 @@ export class ProblemeComponent implements OnInit {
     this.problemeForm = this.fb.group({
       prenom: ['',[ Validators.required, ZonesValidator.longueurMinimum(3)]],
       nom: ['',[ Validators.required, ZonesValidator.longueurMaximum(50)]],
-      typeProbleme: ['',[Validators.required]]
+      typeProbleme: ['',[Validators.required]],
+      courrielGroup: this.fb.group({
+        courriel: [{value: '', disabled: true}],
+        courrielConfirmation: [{value: '', disabled: true}],
+        }),
+       telephone: [{value: '', disabled: true}], 
+       
 
 
     });
@@ -31,4 +37,39 @@ export class ProblemeComponent implements OnInit {
   
   }
 
+  appliquerNotification(notification: string): void {
+    const courrielControl = this.problemeForm.get('courrielGroup.courriel');
+    courrielControl.disable();
+    courrielControl.clearValidators();
+    courrielControl.reset();
+    const courrielConfirmationControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
+    courrielConfirmationControl.disable();
+    courrielConfirmationControl.clearValidators();
+    courrielConfirmationControl.reset();
+    const telephoneControl = this.problemeForm.get('telephone');
+    telephoneControl.disable();
+    telephoneControl.reset();
+    telephoneControl.clearValidators();
+
+    if(notification === 'courriel'){
+      courrielControl.enable();
+      courrielConfirmationControl.enable();
+      telephoneControl.disable();
+      courrielControl.setValidators([Validators.required]);
+      courrielConfirmationControl.setValidators([Validators.required]);
+    }else if(notification === 'telephone'){
+      courrielControl.disable();
+      courrielConfirmationControl.disable();
+      telephoneControl.enable();
+      telephoneControl.setValidators([Validators.required]);
+    }else if(notification === 'aucune'){
+      courrielControl.disable();
+      courrielConfirmationControl.disable();
+      telephoneControl.disable();
+      telephoneControl.setValue('');
+    }
+    courrielControl.updateValueAndValidity();
+    courrielConfirmationControl.updateValueAndValidity();
+    telephoneControl.updateValueAndValidity();
+  }
 }

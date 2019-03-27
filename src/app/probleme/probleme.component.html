@@ -72,6 +72,47 @@
                   </span>
               </div>
              </div>
+             
+             <div class="form-group row">
+              <label for="notificationId" class="col-md-2 col-form-label text-right">Notification: </label>
+              <div class="col-md-10">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="aucuneId" name="notification" checked>
+                    <label class="custom-control-label" for="aucuneId">Ne pas me notifier</label>
+                  </div>
+
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="courrielId" name="notification">
+                    <label class="custom-control-label" for="courrielId">Par courriel</label>
+                  </div>
+  
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="telephoneId" name="notification">
+                    <label class="custom-control-label" for="telephoneId">Par message texte</label>
+                  </div>
+              </div>
+             
+
+             </div>
+             <div class="form-group row">
+                <label for="adresseCourrielId" class="col-md-2 col-form-label text-right">Courriel: </label>
+                <div class="col-md-10" formGroupName='courrielGroup'>
+                    <input type="text" class="form-control" id="adresseCourrielId" placeholder="Votre adresse courriel ici" formControlName="courriel"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="confirmationCourrielId" class="col-md-2 col-form-label text-right">Confirmation courriel: </label>
+                <div class="col-md-10" formGroupName='courrielGroup'>
+                    <input type="text" class="form-control" id="confirmationCourrielId" placeholder="Votre adresse courriel ici" formControlName="courrielConfirmation"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="numTelephoneId" class="col-md-2 col-form-label text-right">Téléphone: </label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="numTelephoneId" placeholder="Votre adresse courriel ici" formControlName="telephone"/>
+                </div>
+            </div>
+
         </form></div>
     </div>
     <div class="card-footer">

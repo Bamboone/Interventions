@@ -4,6 +4,8 @@ import { ProblemeComponent } from './probleme.component';
 import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ZonesValidator } from '../shared/longueur-minimum/longueur-minimum.component';
+import { TypeProblemeService } from './type-probleme.service';
+import { HttpClientModule} from '@angular/common/http';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -12,9 +14,10 @@ describe('ProblemeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,
-        AngularFontAwesomeModule],
+        AngularFontAwesomeModule, HttpClientModule],
 
-      declarations: [ ProblemeComponent ]
+      declarations: [ ProblemeComponent ],
+      providers:[TypeProblemeService]
     })
     .compileComponents();
   }));
@@ -74,6 +77,30 @@ describe('ProblemeComponent', () => {
      //Comparer le résultat avec null
      expect(result['nbreCaracteresInsuffisants']).toBe(true);
 
+  });
+
+  it('Zone TELEPHONE est désactivée quand ne pas me notifier', () =>{
+    component.appliquerNotification('aucune');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone TELEPHONE est vide quand ne pas me notifier', () =>{
+    component.appliquerNotification('aucune');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.value).toBe('');
+  });
+
+  it('Zone ADRESSE COURRIEL est désactivée quand ne pas me notifier', () =>{
+    component.appliquerNotification('aucune');
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone CONFIRMER COURRIEL est désactivée quand ne pas me notifier', () =>{
+    component.appliquerNotification('aucune');
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone.status).toEqual('DISABLED');
   });
   
 });
