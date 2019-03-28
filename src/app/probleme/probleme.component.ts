@@ -48,6 +48,7 @@ export class ProblemeComponent implements OnInit {
     courrielConfirmationControl.disable();
     courrielConfirmationControl.clearValidators();
     courrielConfirmationControl.reset();
+    courrielGroupControl.clearValidators();
     const telephoneControl = this.problemeForm.get('telephone');
     telephoneControl.disable();
     telephoneControl.reset();
@@ -64,7 +65,7 @@ export class ProblemeComponent implements OnInit {
       courrielControl.disable();
       courrielConfirmationControl.disable();
       telephoneControl.enable();
-      telephoneControl.setValidators([Validators.required]);
+      telephoneControl.setValidators([Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(10)],);
     }else if(notification === 'aucune'){
       courrielControl.disable();
       courrielConfirmationControl.disable();
@@ -73,6 +74,7 @@ export class ProblemeComponent implements OnInit {
     }
     courrielControl.updateValueAndValidity();
     courrielConfirmationControl.updateValueAndValidity();
+    courrielGroupControl.updateValueAndValidity();
     telephoneControl.updateValueAndValidity();
   }
 }

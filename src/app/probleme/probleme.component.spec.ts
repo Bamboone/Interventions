@@ -193,4 +193,54 @@ describe('ProblemeComponent', () => {
 
   });
 
+  it('Zone TELEPHONE est activée quand notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).not.toEqual('DISABLED');
+  });
+
+  it('Zone ADRESSE COURRIEL est desactivée quand notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone CONFIRMER COURRIEL est désactivée notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone TELEPHONE est invalide sans valeur quand notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('telephone');
+    let errors = {};
+    errors = zone.errors || {};
+    expect(errors['required']).toBeTruthy();
+  });
+
+  it('Zone TELEPHONE est invalide avec des caractères non-numériques quand notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('telephone');
+    zone.setValue('adasd');
+    let errors = {};
+    errors = zone.errors || {};
+    expect(errors['pattern']).toBeTruthy();
+  });
+
+  it('Zone TELEPHONE est invalide avec 9 chiffres consécutifs quand notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('telephone');
+    zone.setValue('123456789');
+    let errors = {};
+    errors = zone.errors || {};
+    expect(errors['minlength']).toBeTruthy();
+  });
+
+  it('Zone TELEPHONE est valide avec 10 chiffres consécutifs quand notifier par messagerie texte', () =>{
+    component.appliquerNotification('telephone');
+    let zone = component.problemeForm.get('telephone');
+    zone.setValue('1234567891');
+    expect(zone.valid).toBeTruthy();
+  });
 });
