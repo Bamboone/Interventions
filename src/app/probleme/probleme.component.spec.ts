@@ -176,7 +176,7 @@ describe('ProblemeComponent', () => {
     let validator = emailMatcherValidator.courrielDifferents();
     let control = component.problemeForm.get('courrielGroup');
      let result = validator(control as AbstractControl);
-     expect(result).not.toBeNull();
+     expect(result['match']).toBe(true);
 
   });
 
