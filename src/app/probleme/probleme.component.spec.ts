@@ -243,4 +243,20 @@ describe('ProblemeComponent', () => {
     zone.setValue('1234567891');
     expect(zone.valid).toBeTruthy();
   });
+
+  it('champ description doit être invalide avec 0 caractères', () =>{
+    let zone = component.problemeForm.get('descriptionProbleme');
+    let errors = {};
+    errors = zone.errors || {};
+    expect(errors['required']).toBeTruthy();
+
+  });
+
+  it('champ description doit être invalide avec 4 caractères', () =>{
+    let zone = component.problemeForm.get('descriptionProbleme');
+    let errors = {};
+    errors = zone.errors || {};
+    expect(errors['required']).toBeTruthy();
+
+  });
 });
