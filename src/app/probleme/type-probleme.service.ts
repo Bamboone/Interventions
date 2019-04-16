@@ -9,7 +9,7 @@ import { catchError, tap} from 'rxjs/operators';
 })
 export class TypeProblemeService {
 
-  private URLDonnees = 'api/typeprobleme';
+  private URLDonnees = 'https://interventionsgld.azurewebsites.net/api/Intervention';
 
   constructor(private http: HttpClient) { }
 
